@@ -53,3 +53,33 @@ $$J_{mini\_batch}(\theta)=\frac{1}{B}\sum_{i\in batch} L(h_\theta(x_i),y_i)$$
 Ainsi, à chaque itération, on met à jour les paramètres $\theta$ selon la règle suivante :
 $$\theta = \theta - \alpha\nabla J_{mini\_batch}(\theta)$$
 Le mini-batch SGD permet de réduire la variabilité du SGD pur, sans forcément être dans l'excès comme la descente de gradient classique
+
+
+
+
+
+
+
+ 
+
+
+$$\theta_{t+1}=\theta_t-\alpha\nabla f(\theta_t)-\alpha\epsilon_t$$
+$$y_t=\theta_t-\alpha\nabla f(\theta_t)$$
+$$\mathbb{E}\left[y_{t+1} \right]=y_t-\alpha\nabla\mathbb{E}\left[f(y_t-\alpha\epsilon_t) \right]$$
+$$\mathbb{E}\left[f(y_t-\alpha\epsilon_t)\right]$$
+
+Oui bon en gros si t'enlèves le bruit du gradient stochastique ça ressemble vachement à une descente de gradient normal enfin on s'en tape
+
+Ensuite tu lis ça et tu tires les conclusions plz merci http://www.arxiv.org/pdf/1509.01240
+
+Several authors have shown that the stochastic gradient method finds a stationary point of nonconvex cost functions [12, 21].
+[12] S. Ghadimi and G. Lan. Stochastic first-and zeroth-order methods for nonconvex stochastic programming. SIAM Journal on Optimization, 23(4):2341–2368, 2013.
+[21] H. J. Kushner and G. G. Yin. Stochastic Approximation and Recursive Algorithms and Applications. Springer-Verlag, New York, second edition, 2003.
+
+
+For example Livni et al. show that networks with polynomial activations can be learned in a greedy fashion [24]
+[24] R. Livni, S. Shalev-Shwartz, and O. Shamir. On the computational efficiency of training neural networks. In Advances in Neural Information Processing Systems, pages 855–863, 2014.
+
+
+Janzamin et al. [16] show that two layer neural networks can be learned using tensor methods.
+[16] M. Janzamin, H. Sedghi, and A. Anandkumar. Generalization bounds for neural networks through tensor factorization. Preprint available at arXiv:1506.08473, 2015.
