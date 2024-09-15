@@ -95,7 +95,20 @@ Dans ce contexte, si notre algorithme est stable, le modèle devrait donner des 
 Quand on parlera de régularisation, on parlera de stabilité, stay tuned le sang plomb 95
 ### Stabilité uniforme
 
+La stabilité uniforme est une notion plus rigoureuse que la simple stabilité, car elle impose que la différence de performance soit bornée de manière uniforme pour tous les ensembles de données et tous les points d'échantillons possibles, pas seulement en moyenne. C'est une condition très forte qui assure que l'algorithme est stable dans un sens global.
 
+$$|\Delta|\leq\underset{S,S'}{sup}\,\underset{z}{sup}|f(A(S),z)-f(A(S'),z)|$$
+$|\Delta|$ est la **différence maximale** entre les performances de l'algorithme $A$ appliqué aux deux ensembles d'entraînement $S$ et $S'$, mesurée sur tous les points $z$.
 
+Autrement dit, la stabilité uniforme garantit que, quelle que soit la petite perturbation apportée à l'ensemble d'entraînement, la différence entre les performances reste bornée **de manière uniforme**, pour tous les points $z$ et tous les ensembles $S$, $S'$.
 
+L'utilisation du supremum est suffisamment parlante, voici une implémentation possible de cela :
 
+```python
+# Calculer la différence maximale entre les prédictions des deux modèles (S et S') 
+def calculate_max_difference(model1, model2, X_test):
+	preds1 = predict(model1, X_test)
+	preds2 = predict(model2, X_test)
+	differences = np.abs(preds1 - preds2)
+	return np.max(differences)
+```
