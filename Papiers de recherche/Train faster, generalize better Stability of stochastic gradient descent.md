@@ -33,17 +33,15 @@ $$R = R_S+(R-R_S)$$
 En gros, l'idée c'est que si on modifie les valeurs de l'échantillon $S$, tout en restant conforme à la distribution $\mathcal{D}$  (définie sur l'espace $Z$), alors on veut pas que la différence $R\left[w\right] - R_S\left[w\right]$ augmente de manière significative. Cela signifierait que les paramètres $w$ permettent au modèle de généraliser correctement sur le problème que l'on cherche à résoudre.
 ### Stabilité
 
-On peut dire qu'en espérance, la généralisation est égale à la stabilité
+On peut dire que la stabilité en espérance implique la généralisation
 
 Écrivons cette affirmation formellement
 $$\mathbb{E}\left[R - R_S\right] = \Delta$$
-Concrètement, qu'est-ce qu'on veut dire par là ? Cela signifie que l'on s'attend à ce que notre modèle soit insensible aux légères perturbations de données. Le problème mathématiques devient un problème algorithmique, le modèle est stable du moment que l'algorithme utilisé est suffisamment robuste.
+Cela signifie que l'on s'attend à ce que notre modèle soit insensible aux légères perturbations de données. Le problème mathématiques devient un problème algorithmique, le modèle est stable du moment que l'algorithme utilisé est suffisamment robuste.
 
-Voici un développement pour illustrer mon propos
+Pour la démonstration que je vais essayer de faire de cette affirmation, on ne parlera plus des poids $w$ du modèle mais de l'application d'un algorithme $A$ qui mappe un échantillon (=sample) $S$ à un modèle $A(S)$. Cet algorithme doit être robuste, il doit être symétrique.
 
-Pour la démonstration, on ne parlera plus des poids $w$ du modèle mais de l'application d'un algorithme $A$ qui mappe un échantillon (=sample) $S$ à un modèle $A(S)$. Cet algorithme doit être robuste, il doit être symétrique.
-
-Reprenons $S = (z_1, z_2, \dots, z_n)$ où chaque $z_j$ est tiré indépendamment selon la distribution $\mathcal{D}$ et introduisons $S' = (z_1', z_2', \dots, z_n')$ où chaque $z_j'$ est tiré indépendamment selon la distribution $\mathcal{D}$ , on a bien
+Reprenons $S = (z_1, z_2, \dots, z_n)$ où chaque $z_j$ est tiré indépendamment selon la distribution $\mathcal{D}$ et introduisons $S' = (z_1', z_2', \dots, z_n')$ où chaque $z_j'$ est tiré indépendamment selon la distribution $\mathcal{D}$ , $S$ et $S'$ étant indépendants et identiquement distribués, on a bien
 $$\mathbb{E}\left[R_S\right]=\mathbb{E}\left[\frac{1}{n}\sum_{i=1}^{n} f(A(S);z_i)\right]$$
 $$\mathbb{E}\left[R_S\right]=\frac{1}{n}\sum_{i=1}^{n} \mathbb{E}\left[f(A(S);z_i)\right]$$
 $$\mathbb{E}\left[R\right]=\mathbb{E}\left[\frac{1}{n}\sum_{i=1}^{n} f(A(S');z_i')\right]$$
@@ -55,13 +53,12 @@ $$\mathbb{E}\left[f(A(S);z_i)\right]=\mathbb{E}\left[f(A(S^i);z_i')\right]=\math
 
 Essayons de comprendre en quoi cette formule est vraie en reprenant tout depuis le début.
 
-Nous considérons les espérances sur les paires $(A(S),z_i)$, où l'espérance est prise sur toutes les réalisations possibles des échantillons et des points de données. Rappelons que les variables aléatoires sont **indépendantes**, tirées selon la **même distribution $\mathcal{D}$**.
+Nous considérons les espérances sur les paires $(A(S),z_i)$, où l'espérance est prise sur toutes les réalisations possibles des échantillons et des points de données.
 
 Si on réécrit les espérances pour $S$ et $S^i$, ça donne ça
 
 $$\mathbb{E}_{S,z_i}\left[f(A(S);z_i)\right]=E_{z_1,\dots,z_n,z_i}\left[f(A(z_1,\dots,z_n);z_i)\right]$$
 $$\mathbb{E}_{S^i,z_i}\left[f(A(S^i);z_i')\right]=E_{z_1,\dots,z_i-1,z_i',z_i+1,\dots,z_n}\left[f(A(z_1,\dots,z_i-1,z_i',z_i+1,\dots,z_n);z_i')\right]$$
-L'espérance est linéaire c'est pour ça, on reviendra pas là-dessus c'est trivial.
 On a dit que les données $z_i$ et $z_{i}'$ sont tirées indépendamment de la même distribution $\mathcal{D}$.
 
 Rappelons désormais que l'algorithme $A$ est supposé symétrique par rapport à ses arguments : c'est-à-dire que permuter les éléments de l'échantillon $S$ n'affecte pas la distribution du modèle $A(S)$ produit par l'algorithme.
@@ -118,3 +115,9 @@ Je vais donner les notations du papier par rapport à cette histoire. Déjà on 
 $$\underset{z}{sup}\,\mathbb{E}_A\left[f(A(S);z)-f(A(S');z)\right]\leq\epsilon$$
 Voilà, rien à préciser je donne juste la notation pour que tu puisses suivre.
 
+### Fonction L-Lipschitz
+
+Une fonction *L*-Lipschitz est une fonction qui a une croissance contrôlée. En clair, une fonction $f$ est dite $L$-Lipschitz si, pour deux points $x_1$ et $x_2$ dans son domaine, la différence de leurs images par $f$ est bornée par une constante $L$ multipliée par la distance entre $x_1$ et $x_2$.
+
+Une fonction $f$ est $L$-Lipschitz si elle satisfait l'inégalité suivant pour tous $x_1$ et $x_2$ dans son domaine :
+$$|f(x_1)-f(x_2)|\leq L||x_1-x_2||$$

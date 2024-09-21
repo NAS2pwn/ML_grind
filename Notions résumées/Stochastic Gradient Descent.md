@@ -12,7 +12,7 @@ voici la formule de la descente de gradient
 
 $$\nabla J(\theta) = \frac{1}{m} \sum_{i=1}^{m} \nabla_{\theta} L(h_\theta(x_i), y_i)$$
 - $J(\theta)$ est la fonction de coût que l'on cherche à minimiser
-- $\nabla J(\theta)$ est le gradient de la fonction de coût, en gros le vecteur avec la dérivée partielle de la fonction de coût pour chaque paramètre : $\nabla J(\theta) = \left[ \frac{\partial J(\theta)}{\theta_0},  \frac{\partial J(\theta)}{\theta_1},  \frac{\partial J(\theta)}{\theta_2}, \dots \right]$ avec le vecteur de paramètres $\theta = \left[\theta_0, \theta_1, \theta_2, \dots \right]$
+- $\nabla J(\theta)$ est le gradient de la fonction de coût, en gros le vecteur avec la dérivée partielle de la fonction de coût pour chaque paramètre : $\nabla J(\theta) = \left[ \frac{\partial J(\theta)}{\theta_0},  \frac{\partial J(\theta)}{\theta_1},  \frac{\partial J(\theta)}{\theta_2}, \dots \right]$ avec $\theta$ le vecteur de paramètres $\left[\theta_0, \theta_1, \theta_2, \dots \right]$
 - m le nombre total d'exemples dans le dataset
 - $L(h_\theta(x_i),y_i)$ et la perte pour l'exemple $i$
 - $h_\theta(x_i)$ est la prédiction du modèle
