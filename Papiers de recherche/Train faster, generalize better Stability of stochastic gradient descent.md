@@ -92,12 +92,12 @@ Les samples $S$, $S^i$ et $S'$ peuvent être interprétés comme suit :
 
 Dans ce contexte, si notre algorithme est stable, le modèle devrait donner des prédictions similaires même si on met à jour ou qu'on modifie légèrement notre ensemble de données d'entraînement.
 
-Quand on parlera de régularisation, on parlera de stabilité, stay tuned le sang plomb 95
+Dans le papier y a une démo avec une notation différente mais en gros c'est pareil
 ### Stabilité uniforme
 
 La stabilité uniforme est une notion plus rigoureuse que la simple stabilité, car elle impose que la différence de performance soit bornée de manière uniforme pour tous les ensembles de données et tous les points d'échantillons possibles, pas seulement en moyenne. C'est une condition très forte qui assure que l'algorithme est stable dans un sens global.
 
-$$|\Delta|\leq\underset{S,S'}{sup}\,\underset{z}{sup}|f(A(S),z)-f(A(S'),z)|$$
+$$|\Delta|\geq\underset{S,S'}{sup}\,\underset{z}{sup}|f(A(S),z)-f(A(S'),z)|$$
 $|\Delta|$ est la **différence maximale** entre les performances de l'algorithme $A$ appliqué aux deux ensembles d'entraînement $S$ et $S'$, mesurée sur tous les points $z$.
 
 Autrement dit, la stabilité uniforme garantit que, quelle que soit la petite perturbation apportée à l'ensemble d'entraînement, la différence entre les performances reste bornée **de manière uniforme**, pour tous les points $z$ et tous les ensembles $S$, $S'$.
@@ -112,3 +112,9 @@ def calculate_max_difference(model1, model2, X_test):
 	differences = np.abs(preds1 - preds2)
 	return np.max(differences)
 ```
+
+Je vais donner les notations du papier par rapport à cette histoire. Déjà on parle de stabilité $\epsilon$-uniforme (tu comprendras pourquoi dans un instant), et c'est plutôt noté ainsi :
+
+$$\underset{z}{sup}\,\mathbb{E}_A\left[f(A(S);z)-f(A(S');z)\right]\leq\epsilon$$
+Voilà, rien à préciser je donne juste la notation pour que tu puisses suivre.
+
