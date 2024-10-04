@@ -121,3 +121,12 @@ Une fonction *L*-Lipschitz est une fonction qui a une croissance contrôlée. En
 
 Une fonction $f$ est $L$-Lipschitz si elle satisfait l'inégalité suivant pour tous $x_1$ et $x_2$ dans son domaine :
 $$|f(x_1)-f(x_2)|\leq L||x_1-x_2||$$
+### Fonction convexe
+
+Une fonction $f : \Omega \rightarrow \mathbb{R}$  est convexe si pour tout $u, v \in \Omega$ on a
+$$f(u) \geq f(v)+\langle\nabla(v), u-v\rangle  $$
+### Fonction fortement connexe
+
+$$f(u) \geq f(v)+\langle\nabla(v), u-v\rangle + \frac{\gamma}{2}||u-v||^2$$
+
+J'ai compris ce que je devais comprendre, on passe à la suite on approfondira si besoin
