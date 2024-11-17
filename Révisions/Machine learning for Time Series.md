@@ -95,3 +95,19 @@ Still, no single algorithm clearly performs best. We highlighted several algorit
 
 [How (not) to use Machine Learning for time series forecasting: Avoiding the pitfalls](https://towardsdatascience.com/how-not-to-use-machine-learning-for-time-series-forecasting-avoiding-the-pitfalls-19f9d7adf424)
 
+On peut penser avoir un bon modèle, et en fait se tromper totalement. Se baser sur les métriques d'erreur classiques style mean percentage error ou R2 score peut induire en erreur si ce n'est pas fait avec précaution.
+
+On va traiter l'exemple de l'article, en gros il a voulu prédire l'évolution d'un index boursier avec LSTM, on dirait qu'il a atteint une super accuracy comme on le voit sur le graphe figure 1 et le r2 score figure 2
+
+![[fig1.webp]]
+
+Figure 1 : Prédiction vs test set
+
+![[fig2.webp]]
+Figure 2 : R2 score
+
+En fait, il est impossible que la prédiction soit bonne pour la simple et bonne raison qu'il ne s'agit pas d'un vrai indice boursier mais d'un random walk process, un processus complètement stochastique. On ne peut simplement pas prévoir la suite de la série temporelle parce qu'il n'y a aucune logique, juste du hasard.
+
+Comment alors le modèle a pu prévoir la suite de la série temporelle si précisément ?
+
+En fait la raison est assez simple, 
