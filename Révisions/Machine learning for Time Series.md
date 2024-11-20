@@ -106,8 +106,53 @@ Figure 1 : Prédiction vs test set
 ![[fig2.webp]]
 Figure 2 : R2 score
 
-En fait, il est impossible que la prédiction soit bonne pour la simple et bonne raison qu'il ne s'agit pas d'un vrai indice boursier mais d'un random walk process, un processus complètement stochastique. On ne peut simplement pas prévoir la suite de la série temporelle parce qu'il n'y a aucune logique, juste du hasard.
+En fait, il est impossible que la prédiction soit basée sur des motifs qui ont du sens pour la simple et bonne raison qu'il ne s'agit pas d'un vrai indice boursier mais d'un random walk process, un processus complètement stochastique. Il n'y a pas de logique, que du hasard
 
 Comment alors le modèle a pu prévoir la suite de la série temporelle si précisément ?
 
-En fait la raison est assez simple, 
+En fait la raison est assez simple, la série est autocorrelée, la valeur à t+1 est liée à la valeur t
+
+Pour résumer : le modèle ne faisait que répéter le motif précédent à chaque étape, arrivant donc à une prédiction accurate mais inutile
+
+
+blablabla
+
+
+Bref en gros pour détecter ça, une bonne façon de faire c'est de voir si on peut la rendre stationnaire. Pour rappel, une série temporelle est dite stationnaire si ses propriétés statistiques restent constantes, typiquement : moyenne, variance, structure d'autocorrelation
+
+Exemples de signaux stationnaires ou non
+
+**White Noise (Bruit blanc) : Stationnaire**
+
+- Le bruit blanc est stationnaire car chaque événement a une probabilité égale de se produire, indépendamment des autres événements et du temps.
+
+**Coloured Noise (Bruit coloré) : Stationnaire**
+
+- C'est un bruit blanc filtré (par ex. le bruit rose) où les probabilités entre événements voisins ne sont pas égales.
+- Cependant, si les probabilités ne changent pas au cours du temps, le processus reste stationnaire.
+
+**Chirp (Signal montant/descendant) : Non stationnaire**
+
+- Les probabilités entre événements changent dans le temps, car la fréquence du signal augmente ou diminue. Cela modifie la dynamique entre les échantillons.
+
+**Sinusoïde : Stationnaire**
+
+- Une sinusoïde simple a des probabilités constantes entre événements, donc elle est stationnaire.
+
+**Somme de sinusoïdes : Stationnaire**
+
+- Si les périodes et amplitudes des composantes ne changent pas dans le temps, le processus reste stationnaire, car les contraintes entre échantillons sont fixes.
+
+**ECG/EEG (Signaux biologiques) : Non stationnaires**
+
+- Ces signaux reflètent des processus biologiques modulés par des facteurs externes (par exemple, l'activité cérébrale ou la variabilité du rythme cardiaque), donc ils changent dans le temps.
+- Exception : sur des fenêtres d'observation courtes (par ex. 30 secondes sous des conditions fixes), ils peuvent être considérés comme approximativement stationnaires.
+
+
+
+Bref, pour voir ça il a utilisé le time differencing, genre `diff()` en gros la différence entre les valeurs successives de la série
+
+
+
+
+https://www.linkedin.com/pulse/how-use-machine-learning-time-series-forecasting-vegard-flovik-phd-1f/
