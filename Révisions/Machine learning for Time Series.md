@@ -112,8 +112,7 @@ Comment alors le modèle a pu prévoir la suite de la série temporelle si préc
 
 En fait la raison est assez simple, la série est autocorrelée, la valeur à t+1 est liée à la valeur t
 
-Pour résumer : le modèle ne faisait que répéter le motif précédent à chaque étape, arrivant donc à une prédiction accurate mais inutile
-
+Pour résumer : le modèle ne faisait que répéter le motif précédent, arrivant donc à une prédiction accurate selon tout indicateur mais incapable de raisonner autrement.
 
 blablabla
 
@@ -148,11 +147,46 @@ Exemples de signaux stationnaires ou non
 - Ces signaux reflètent des processus biologiques modulés par des facteurs externes (par exemple, l'activité cérébrale ou la variabilité du rythme cardiaque), donc ils changent dans le temps.
 - Exception : sur des fenêtres d'observation courtes (par ex. 30 secondes sous des conditions fixes), ils peuvent être considérés comme approximativement stationnaires.
 
+Bref, pour voir ça on peut utiliser le time differencing, genre `diff()` en gros la différence entre les valeurs successives de la série
 
-
-Bref, pour voir ça il a utilisé le time differencing, genre `diff()` en gros la différence entre les valeurs successives de la série
-
-
-
+TODO : Lire le sequel en se concentrant
 
 https://www.linkedin.com/pulse/how-use-machine-learning-time-series-forecasting-vegard-flovik-phd-1f/
+
+## Data science pour les séries temporelles
+
+La data science n'est pas lancer des packages de DL jusqu'à obtenir les meilleurs résultats
+
+La datascience vise aussi à comprendre la data, interagir avec des experts, apporter de l'intelligence humaine et de l'expertise et améliorer un savoir
+
+L'intelligence artificielle ne peut pas être intelligente si le data scientist ne l'est pas
+
+Appliquer des méthodes de DL complexes n'exempte pas de la phase de recherche préliminaire
+
+
+Bref, un datascientist passe plus de temps à collecter de la data et surtout la nettoyer, l'organiser, qu'à faire tourner des algos de ML ou autre
+
+Grosso modo :
+- Comprendre la data pour extraire ce qui est pertinent
+- Comprendre ce qu'on fait, pourquoi on le fait, comment on le fait : interprétabilité
+
+La représentation est importante, on peut chercher à voir :
+- La fréquence
+- La saisonnalité
+- ... (TODO : remplis cette liste ça te fera gamberger)
+
+Les tâches principales de ML principales pour les séries temporelles sont :
+- Prédiction : Prédire les valeurs futures de la série temporelle
+- Complétion/interpolation : Combler les trous dans une série temporelle
+- Classification : de signaux complets ou de subsequence
+- Clustering
+- Requête par contexte/indexation : Etant donnée une série temporelle d'entrée, retrouver les séries temporelles les plus proches dans une DB
+- Segmentation/detection de points de changement
+- Détection d'anomalies
+- Extraction de patterns
+
+Les tâches cachées sont :
+- Comprendre la donnée : comprendre d'où elles viennent, comment elles sont acquises, quelles sont ses caractéristiques, interagir avec des experts du domaine et comprendre leurs problèmes
+- Améliorer la donnée : trouver des espaces de représentation pertinents dans lequels les évènement intéressants peuvent être vus, consolider la donnée (débruiter, detrend, détecter et enlever les valeurs aberrantes)
+- Modeler la donnée : modèles physiques/statistiques ou basés sur les experts, simples, adaptifs et interprétables
+- Extraire de l'information de la donnée : trouver les patterns répetitifs, les features intéressantes, les change-points, les anomalies...
