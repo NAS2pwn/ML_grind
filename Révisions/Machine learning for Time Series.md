@@ -190,3 +190,82 @@ Les tâches cachées sont :
 - Améliorer la donnée : trouver des espaces de représentation pertinents dans lequels les évènement intéressants peuvent être vus, consolider la donnée (débruiter, detrend, détecter et enlever les valeurs aberrantes)
 - Modeler la donnée : modèles physiques/statistiques ou basés sur les experts, simples, adaptifs et interprétables
 - Extraire de l'information de la donnée : trouver les patterns répetitifs, les features intéressantes, les change-points, les anomalies...
+
+# Pattern recognition et détection
+
+## Problème 1 : Pattern Detection
+
+**Etant donnée un dictionnaire de patterns, retrouver ces patterns dans une série temporelle donnée**
+
+- Les patterns/les séries temporelles peuvent être multivariées
+- Les patterns peuvent avoir différentes longueurs
+- Les patterns peuvent être annotées, c-à-d liée à un phénomène spécifique d'intérêt: dans ce contexte, la pattern recognition va fournir une annotation automatique aux série temporelles données
+
+## Problème 2 : Pattern Extraction
+
+**Etant donnée une série temporelle (ou un ensemble de séries temporelles), apprendre un dictionnaire de patterns**
+
+- Un pattern est une forme qui apparaît de façon répétitive dans une série temporelle
+- Tous les patterns sont supposés avec la même longueur
+- Les patterns extraits peuvent être utilisés pour caractériser une série temporelle, ou être étudiés individuellement
+
+## Comparer des séries temporelles
+
+### Distance euclidienne
+
+- Sensible aux time shifts, aux changements d'amplitude, aux offsets et aux dilatations/contractions
+- Nécessité d'avoir un perfect match dans les timelines
+- Sensible aux données aberrantes mais OK avec un faible AWGN
+
+### Distance euclidienne normalisée
+
+- Insensible aux changements d'amplitude et d'offset
+- Toujours sensible aux time shifts, aux dilatations/contractions, aux valeurs aberrantes et aux timelines décalées
+- Peut augmenter la sensibilité au bruit ajouté
+
+### Dynamic Time Warping (DTW)
+
+**Rappel :** DTW est une méthode qui permet de comparer des séries temporelles en tenant compte des déformations non linéaires dans la timeline, comme des contractions, dilatations ou décalages.
+
+#### Notion de Path
+
+Un **path** (ou chemin) est une séquence d'alignements entre deux séries temporelles $X = (x_1, x_2, \dots, x_M)$ et $Y = (y_1, y_2, \dots, y_N)$. Il relie chaque point de $X$ à un ou plusieurs points de $Y$, selon les transformations temporelles nécessaires.
+
+Un path est une séquence d'indices $(i_k, j_k)$ où :
+
+- $i_k$ correspond à l'indice dans $X$,
+- $j_k$​ correspond à l'indice dans $Y$,
+- $k$ parcourt les étapes de l'alignement.
+
+#### Choix du Path Optimal
+
+Le **path optimal** minimise une fonction de coût cumulatif définie sur le chemin. Le coût global $C(X, Y)$ est défini comme la somme des distances entre les points alignés :
+
+$$C(X, Y) = \sum_{k=1}^{K_P} d(x_{i_k}, y_{j_k}),$$
+
+où $d(x_{i_k}, y_{j_k})$ est une mesure locale de distance, souvent la distance euclidienne :
+
+$$d(x, y) = |x - y|.$$
+
+La tâche de DTW est de trouver le chemin optimal parmi un ensemble de chemins acceptables $\mathcal{P}$.
+#### Set de Paths Acceptables ($\mathcal{P}$)
+
+Le chemin doit respecter les contraintes suivantes :
+
+1. **Continuity** (Pas limité entre points) :
+$$|i_k - i_{k-1}| \leq 1 \quad \text{et} \quad |j_k - j_{k-1}| \leq 1.$$
+    Cela garantit que l'alignement est continu, sans sauts dans les séries.
+    
+2. **Monotonicity** (Ordre respecté) : $$i_{k-1} \leq i_k \quad \text{et} \quad j_{k-1} \leq j_k.$$Cela impose que le chemin ne revient pas en arrière, respectant la progression du temps.
+    
+3. **Boundary Conditions** (Alignement complet) :
+    $$(i_1, j_1) = (1, 1) \quad \text{et} \quad (i_{K_P}, j_{K_P}) = (M, N).$$
+    
+    Le chemin commence au début de $X$ et $Y$, et finit à leurs extrémités respectives.
+    
+### **Calcul par Programmation Dynamique**
+
+Pour trouver le chemin optimal, on construit une matrice de coût cumulatif $D$ où chaque cellule $D(i, j)$ représente le coût minimal pour aligner $X_{1:i}$ avec $Y_{1:j}$. La relation de récurrence est donnée par :
+$$D(i, j) = d(x_i, y_j) + \min \big( D(i-1, j), \, D(i, j-1), \, D(i-1, j-1) \big).$$
+
+La solution finale est donnée par $D(M, N)$, qui contient le coût total minimal. Le chemin optimal est retrouvé en remontant les choix minimaux dans $D$.
