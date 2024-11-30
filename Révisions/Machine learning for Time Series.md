@@ -263,9 +263,40 @@ $$|i_k - i_{k-1}| \leq 1 \quad \text{et} \quad |j_k - j_{k-1}| \leq 1.$$
     
     Le chemin commence au début de $X$ et $Y$, et finit à leurs extrémités respectives.
     
-### **Calcul par Programmation Dynamique**
+### Calcul par Programmation Dynamique
 
 Pour trouver le chemin optimal, on construit une matrice de coût cumulatif $D$ où chaque cellule $D(i, j)$ représente le coût minimal pour aligner $X_{1:i}$ avec $Y_{1:j}$. La relation de récurrence est donnée par :
 $$D(i, j) = d(x_i, y_j) + \min \big( D(i-1, j), \, D(i, j-1), \, D(i-1, j-1) \big).$$
 
 La solution finale est donnée par $D(M, N)$, qui contient le coût total minimal. Le chemin optimal est retrouvé en remontant les choix minimaux dans $D$.
+
+![[comparatif.png]]
+
+## Détecter des patterns dans les séries temporelles
+
+Pour trouver un pattern connu $\mathbf{p}$ de longueur $N_p$ dans une série temporelle **x** de longueur $N$, on doit compute toutes les distances
+
+$$d[n]=d(\mathbf{p}, x[n:n+N_p-1])$$
+avec $1 \leq n \leq N - N_d+1$ et où $x[n:n+N_d-1]$ est la séquence de $x$ commençant à $n$ et de longueur $N_p$
+
+Bon là ça parle de fast computation, honnêtement on s'en fout c'est sûrement implémenté quelque part mais intéressant quand même pour le fun, juste quelques points à savoir :
+
+- Both computations of sliding Euclidean distance and normalized Euclidean distance can be computed in O(N log N)
+- Normalized Euclidean distance is not more computationally demanding than standard Euclidean distance: the only difference lies in the computation of $μ_x [n]$ which is linear
+- With Np = 102 and N = 108, time computation is only 16 seconds on standard computers
+
+Ensuite pour DTW ça explique aussi la fast computation mais bref bref bref on s'égare
+
+## Extraire des pattern
+
+On a vu des méthodes pour chercher des patterns dans une série temporelle : ces méthodes nécessitent un dictionnaire prédéfini de templates
+
+En pratique, on peut être intéressé par la question inverse : comment je peux détecter et extraire des patterns d'une série temporelle ?
+
+C'est une tâche non supervisée : pas besoin de savoir préalable sauf pour la durée moyenne des patterns recherchés $\mathcal{L}$
+
+**Qu'est-ce qu'un pattern ?** Question difficile : des formes répétitives, une notion de périodicité, etc.
+
+Intuitivement, comme dans la partie précédente on pourrait compute la distance sur un tas de subsequences pour voir des choses qui se répètent
+
+La solution est-elle alors de bruteforce ?
