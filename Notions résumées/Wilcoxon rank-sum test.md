@@ -13,15 +13,15 @@ Le **Wilcoxon rank-sum test**, aussi appelé le **Mann-Whitney U test**, est un 
 1. **Rangement des données** : Les observations des deux échantillons sont combinées, puis rangées par ordre croissant.
 2. **Attribution des rangs** : Chaque observation se voit attribuer un rang. En cas d'ex-aequo, on attribue la moyenne des rangs concernés.
 3. **Somme des rangs** : Pour chaque groupe, on calcule la somme des rangs.
-4. **Statistique de test** : Une statistique UUU ou WWW est calculée à partir des rangs pour mesurer la différence entre les groupes.
-5. **Signification statistique** : On compare UUU à une distribution critique (ou on utilise une ppp-valeur) pour déterminer si la différence est significative.
+4. **Statistique de test** : Une statistique $U$ ou $W$ est calculée à partir des rangs pour mesurer la différence entre les groupes.
+5. **Signification statistique** : On compare $U$ à une distribution critique (ou on utilise une $p$-valeur) pour déterminer si la différence est significative.
 
 ---
 
 ### Hypothèses du test :
 
-- **Hypothèse nulle (H0H_0H0​)** : Les deux échantillons proviennent de populations identiques (les distributions sont similaires).
-- **Hypothèse alternative (H1H_1H1​)** : Les deux échantillons proviennent de populations différentes (les distributions diffèrent).
+- **Hypothèse nulle ($H_0$​)** : Les deux échantillons proviennent de populations identiques (les distributions sont similaires).
+- **Hypothèse alternative ($H_1$​)** : Les deux échantillons proviennent de populations différentes (les distributions diffèrent).
 
 ---
 
@@ -29,7 +29,7 @@ Le **Wilcoxon rank-sum test**, aussi appelé le **Mann-Whitney U test**, est un 
 
 1. **Comparaison de groupes indépendants** : Ex. : Comparer les scores de performance de deux groupes d'étudiants (un groupe utilisant une méthode pédagogique différente).
 2. **Données asymétriques ou non normales** : Lorsque la normalité des données ne peut pas être supposée.
-3. **Petits échantillons** : Approprié pour des échantillons de petite taille où les tests paramétriques, comme le ttt-test, ne sont pas fiables.
+3. **Petits échantillons** : Approprié pour des échantillons de petite taille où les tests paramétriques, comme le $t$-test, ne sont pas fiables.
 
 ---
 
